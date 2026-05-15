@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>منصة محمد زايد - كتاب الأطفال والحاسوب + تعليم العربية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background: linear-gradient(135deg, #0f172a, #1e293b); min-height: 100vh; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .page { background: #1e293b; border-radius: 48px; padding: 25px; border: 2px solid #facc15; margin-bottom: 20px; }
+        .hide { display: none; }
+        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background-color: #25D366; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; z-index: 1000; text-decoration: none; }
+        .whatsapp-float img { width: 35px; height: 35px; }
+        button { padding: 12px; margin: 8px 0; border: none; border-radius: 35px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; }
+        button:hover { transform: scale(1.02); }
+        .btn-gold { background: #facc15; color: #1e293b; }
+        .btn-green { background: #22c55e; color: white; }
+        .btn-purple { background: #8B008B; color: white; }
+        .btn-blue { background: #3b82f6; color: white; }
+        .btn-gray { background: #334155; color: white; }
+        .btn-red { background: #dc2626; color: white; }
+        .title { color: #facc15; font-size: 28px; font-weight: bold; text-align: center; margin: 10px 0; }
+        .counter-box { background: #0f172a; padding: 10px; border-radius: 20px; margin: 15px 0; text-align: center; color: #facc15; border: 1px solid #facc15; }
+        .speech-bubble { background: #0f172a; padding: 20px; border-radius: 24px; margin: 15px 0; border-right: 5px solid #facc15; color: #f1f5f9; line-height: 1.8; }
+        .progress-bar { background: #334155; border-radius: 20px; height: 10px; margin: 15px 0; }
+        .progress-fill { background: #22c55e; width: 0%; height: 100%; border-radius: 20px; }
+        input, textarea { width: 100%; padding: 12px; margin: 8px 0; border-radius: 30px; border: none; text-align: right; }
+        .flex-row { display: flex; gap: 10px; }
+        .radio-group { display: flex; justify-content: center; gap: 10px; margin: 15px 0; flex-wrap: wrap; }
+        .radio-group label { background: rgba(218,165,32,0.15); padding: 8px 12px; border-radius: 30px; cursor: pointer; color: #facc15; }
+        .topics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .topic-card { background: #0f172a; padding: 15px; border-radius: 15px; cursor: pointer; border: 2px solid #facc15; color: #facc15; text-align: center; transition: 0.2s; }
+        .topic-card:hover { background: #facc15; color: #1e293b; transform: scale(1.02); }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0; border-radius: 24px; overflow: hidden; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .footer { text-align: center; color: #94a3b8; margin-top: 20px; font-size: 12px; }
+        .welcome-box { background: linear-gradient(135deg, #facc15, #ff8c00); color: #1e293b; padding: 20px; border-radius: 30px; text-align: center; margin-bottom: 20px; }
+        .page-image { text-align: center; margin: 15px 0; }
+        .page-image img { max-width: 100%; border-radius: 15px; background: white; padding: 8px; max-height: 150px; object-fit: contain; }
+        .kids-talk { color: #86efac; font-weight: bold; }
+        .computer-talk { color: #facc15; font-weight: bold; }
+        .trilingual { background: #0f172a; padding: 10px; border-radius: 12px; margin: 10px 0; font-size: 14px; border-right: 3px solid #facc15; }
+        .quiz-question { background: #eef2ff; margin: 15px 0; padding: 15px; border-radius: 15px; border-right: 5px solid #facc15; color: #1e293b; }
+        .quiz-question input, .quiz-question select { width: 95%; padding: 8px; margin-top: 8px; border-radius: 30px; border: 1px solid #ccc; }
+        .certificate { background: linear-gradient(135deg, #ffd89b, #c7e9fb); padding: 20px; text-align: center; border-radius: 20px; margin-top: 20px; border: 3px solid #facc15; color: #1e293b; }
+        .score-high { color: #86efac; font-size: 42px; }
+        .score-medium { color: #facc15; font-size: 42px; }
+        .score-low { color: #f97316; font-size: 42px; }
+        .result-box { background: #0f172a; padding: 25px; border-radius: 32px; text-align: center; border: 2px solid #facc15; color: white; }
+        .level-badge { display: inline-block; padding: 5px 15px; border-radius: 30px; font-weight: bold; margin: 10px 0; }
+        .level-A1 { background: #86efac; color: #1e293b; }
+        .level-A2 { background: #facc15; color: #1e293b; }
+        .level-B1 { background: #fb923c; color: #1e293b; }
+        .level-B2 { background: #f87171; color: white; }
+        .logo-area { position: relative; width: 120px; height: 120px; margin: 0 auto 20px; }
+        .rotating-text { position: absolute; width: 220px; height: 220px; top: -50px; left: -50px; animation: spin 10s linear infinite; }
+        .rotating-text svg { width: 100%; height: 100%; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .round-logo { width: 120px; height: 120px; border-radius: 50%; border: 4px solid #FFD700; box-shadow: 0 0 25px #FFD700; margin: 0 auto; background: white; overflow: hidden; }
+        .round-logo img { width: 100%; height: 100%; object-fit: cover; }
+        .marquee-box { background: #0f172a; padding: 12px; border-radius: 50px; margin: 15px 0; border: 2px solid #facc15; }
+        marquee { color: #facc15; font-weight: bold; font-size: 16px; }
+        .ad-box { background: #0f172a; padding: 10px; border-radius: 20px; margin: 10px 0; text-align: center; border: 1px solid #facc15; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .arabic-word { font-size: 24px; font-weight: bold; color: #facc15; }
+        
+        /* أنماط قسم تعليم العربية */
+        .audio-card { background: white; border-radius: 25px; padding: 20px; margin: 15px 0; }
+        .big-letter { font-size: 60px; font-weight: bold; text-align: center; background: #fef9c3; padding: 20px; border-radius: 25px; margin: 10px 0; }
+        .status-recording { background: #fee2e2; color: #991b1b; animation: pulse 1s infinite; padding: 10px; border-radius: 15px; text-align: center; }
+        .status-success { background: #dcfce7; color: #166534; padding: 10px; border-radius: 15px; text-align: center; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+        audio { width: 100%; margin: 10px 0; border-radius: 30px; }
+    </style>
+</head>
+<body>
+
+<a href="https://wa.me/21655335477" class="whatsapp-float" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="WhatsApp">
+</a>
+
+<div class="container">
+
+<!-- ======================= الصفحة الرئيسية ======================= -->
+<div id="pageHome" class="page">
+    <div class="logo-area">
+        <div class="rotating-text">
+            <svg viewBox="0 0 200 200">
+                <path id="circlePath" d="M30,100 a70,70 0 1,1 140,0 a70,70 0 1,1 -140,0" fill="none"/>
+                <text font-size="9" fill="#FFD700" font-weight="bold">
+                    <textPath href="#circlePath" startOffset="0%">🔥 محمد زايد - خبير دولي وأستاذ جامعي 🔥 تونس 🔥</textPath>
+                </text>
+            </svg>
+        </div>
+        <div class="round-logo">
+            <img src="https://i.postimg.cc/FKM4M1Hc/150620252.jpg" alt="شعار منصة محمد زايد">
+        </div>
+    </div>
+    <div class="marquee-box">
+        <marquee>🌟🌟🌟 منصة محمد زايد (خبير دولي وأستاذ جامعي) | تونس | التعليم عن بعد | الأطفال والحاسوب | تعليم العربية 🌟🌟🌟</marquee>
+    </div>
+    
+    <div class="ad-box">
+        <span style="color:#facc15; font-weight:bold;">📢 عروض خاصة: 📘 المنجد الثلاثي (عربي-فرنسي-إنجليزي) بسعر 25 د.ت / 15$ / 15€ فقط! 🎉</span>
+    </div>
+    
+    <div class="welcome-box">
+        <h2>🌟 مرحباً بك في منصة محمد زايد 🌟</h2>
+        <p>خبير دولي في التقنيات الحاسوبية | أستاذ جامعي | تونس</p>
+    </div>
+    <div class="counter-box">📊 عدد المسجلين: <span id="countUsers">0</span></div>
+    
+    <input type="text" id="fullName" placeholder="الاسم الكامل *">
+    <div class="flex-row">
+        <input type="text" id="profession" placeholder="المهنة">
+        <input type="text" id="specialty" placeholder="الاختصاص">
+    </div>
+    <input type="text" id="country" placeholder="البلد *">
+    <input type="tel" id="phone" placeholder="واتساب *">
+    <input type="email" id="email" placeholder="البريد الإلكتروني *">
+    
+    <div class="radio-group">
+        <label><input type="radio" name="cat" value="طفل"> 🧒 طفل</label>
+        <label><input type="radio" name="cat" value="ولي"> 👨‍👩‍👧 ولي</label>
+        <label><input type="radio" name="cat" value="أستاذ"> 👨‍🏫 أستاذ</label>
+        <label><input type="radio" name="cat" value="طالب"> 🎓 طالب</label>
+        <label><input type="radio" name="cat" value="باحث"> 🔬 باحث</label>
+        <label><input type="radio" name="cat" value="مشرف"> 👨‍💼 مشرف</label>
+    </div>
+    
+    <button class="btn-gold" onclick="startTrial()">🎁 درس تجريبي</button>
+    <button class="btn-green" onclick="showLevel1()">📚 الدروس الداعمة (المستوى الأول) - كتاب الأطفال والحاسوب</button>
+    <button class="btn-green" onclick="showLevel2()" style="background:#6b21a5;">⭐ الدروس الداعمة (المستوى الثاني)</button>
+    <button class="btn-blue" onclick="showTopics()">📚 المحاور التعليمية</button>
+    <button class="btn-purple" onclick="showArabicTest()">🌍 اختبار تحديد مستوى اللغة العربية</button>
+    <button class="btn-purple" onclick="showAdminLogin()" style="background:#6b21a5;">👨‍💼 لوحة المشرف</button>
+    
+    <div class="options-grid">
+        <button class="btn-gray" onclick="saveUser()">💾 حفظ بياناتي</button>
+        <button class="btn-red" onclick="exitApp()">🚪 خروج</button>
+    </div>
+    <div class="footer">📞 +21655335477 | ✉️ zeidoun2021@gmail.com</div>
+</div>
+
+<!-- ======================= المحاور التعليمية ======================= -->
+<div id="pageTopics" class="page hide">
+    <div class="title">📚 المحاور التعليمية</div>
+    <div class="topics-grid">
+        <div class="topic-card" onclick="showTopicDetail('المدينة الذكية')">🏙️ المدينة الذكية</div>
+        <div class="topic-card" onclick="showTopicDetail('الذكاء الاصطناعي')">🤖 الذكاء الاصطناعي</div>
+        <div class="topic-card" onclick="showTopicDetail('الأمن السيبراني')">🛡️ الأمن السيبراني</div>
+        <div class="topic-card" onclick="showTopicDetail('تطوير التعليم')">📚 تطوير التعليم</div>
+        <div class="topic-card" onclick="showLevel1()">📖 المستوى الأول</div>
+        <div class="topic-card" onclick="showLevel2()">⭐ المستوى الثاني</div>
+        <div class="topic-card" onclick="showBookstore()">📚 مكتبة الكتب</div>
+        <div class="topic-card" onclick="showTopicDetail('المحاضرات العلمية')">🎥 المحاضرات</div>
+        <div class="topic-card" onclick="showTopicDetail('الندوات التكوينية')">🎤 الندوات</div>
+        <div class="topic-card" onclick="showArabicTest()">🌍 تعليم العربية</div>
+    </div>
+    <button class="btn-gray" onclick="showHome()">🏠 الرئيسية</button>
+</div>
+
+<div id="pageContent" class="page hide">
+    <div class="title" id="contentTitle"></div>
+    <div id="contentBody" class="speech-bubble"></div>
+    <button class="btn-gray" onclick="showTopics()">🔙 العودة</button>
+</div>
+
+<!-- ======================= درس تجريبي ======================= -->
+<div id="pageTrial" class="page hide">
+    <div class="title">🎁 درس تجريبي - الأطفال والحاسوب</div>
+    <div id="trialContent"></div>
+    <div style="display:flex; gap:10px;"><button class="btn-green" style="flex:1" onclick="trialPrev()">◀</button><button class="btn-gold" style="flex:1" onclick="trialNext()">▶</button></div>
+    <div id="trialCount"></div><div class="progress-bar"><div id="trialFill" class="progress-fill"></div></div>
+    <button class="btn-gray" onclick="showHome()">🔙 الرئيسية</button>
+</div>
+
+<!-- ======================= المستوى الأول (كتاب الأطفال والحاسوب كاملاً) ======================= -->
+<div id="pageLevel1" class="page hide">
+    <div class="title">📚 الدروس الداعمة (المستوى الأول) - كتاب الأطفال والحاسوب</div>
+    <div id="level1Content"></div>
+    <div style="display:flex; gap:10px;"><button class="btn-green" style="flex:1" onclick="level1Prev()">◀</button><button class="btn-gold" style="flex:1" onclick="level1Next()">▶</button></div>
+    <div id="level1Count"></div><div class="progress-bar"><div id="level1Fill" class="progress-fill"></div></div>
+    <button class="btn-gray" onclick="showHome()">🔙 الرئيسية</button>
+</div>
+
+<!-- ======================= تمارين المستوى الأول (50 سؤالاً) ======================= -->
+<div id="pageLevel1Exercises" class="page hide">
+    <div class="title">📝 تمارين المستوى الأول (50 سؤالاً - 2 نقطة لكل سؤال)</div>
+    <div id="level1ExercisesContainer"></div>
+    <div style="display:flex; gap:10px;"><button class="btn-green" style="flex:1" onclick="ex1Prev()">◀</button><button class="btn-gold" style="flex:1" onclick="ex1Next()">▶</button></div>
+    <button class="btn-purple" onclick="submitLevel1Exercises()">✅ تصحيح</button>
+    <button class="btn-gray" onclick="showLevel1()">🔙 العودة للدرس</button>
+</div>
+
+<div id="pageLevel1ExResult" class="page hide"><div class="title">النتيجة</div><div id="level1ExResultContent"></div></div>
+
+<!-- ======================= المستوى الثاني ======================= -->
+<div id="pageLevel2" class="page hide">
+    <div class="title">⭐ الدروس الداعمة (المستوى الثاني) - علم الحاسوب المتقدم</div>
+    <div id="level2Content"></div>
+    <div style="display:flex; gap:10px;"><button class="btn-green" style="flex:1" onclick="level2Prev()">◀</button><button class="btn-gold" style="flex:1" onclick="level2Next()">▶</button></div>
+    <div id="level2Count"></div><div class="progress-bar"><div id="level2Fill" class="progress-fill"></div></div>
+    <button class="btn-gray" onclick="showHome()">🔙 الرئيسية</button>
+</div>
+
+<div id="pageLevel2Exam" class="page hide"><div class="title">اختبار المستوى الثاني</div><div id="level2ExamContainer"></div><button class="btn-purple" onclick="submitLevel2Exam()">تصحيح</button><button class="btn-gray" onclick="showLevel2()">العودة</button></div>
+<div id="pageLevel2Result" class="page hide"><div class="title">النتيجة</div><div id="level2ResultContent"></div></div>
+
+<!-- ======================= مكتبة الكتب ======================= -->
+<div id="pageBookstore" class="page hide">
+    <div class="title">📚 مكتبة الكتب</div>
+    <div id="booksGrid" class="topics-grid"></div>
+    <button class="btn-gray" onclick="showTopics()">🔙 العودة</button>
+</div>
+
+<div id="pagePromo" class="page hide">
+    <div class="title">📘 المنجد الثلاثي</div>
+    <div class="counter-box">عربي - Français - English</div>
+    <div class="speech-bubble" style="text-align:center;">
+        <div style="font-size:60px;">📘✨</div>
+        <div><strong>💰 السعر: 25 د.ت / 15$ / 15€</strong></div>
+        <p>أكثر من 10,000 مصطلح تقني</p>
+    </div>
+    <button class="btn-gold" onclick="buyNow()">💰 شراء</button>
+    <button class="btn-gray" onclick="showHome()">🏠 العودة</button>
+</div>
+
+<!-- ======================= لوحة المشرف ======================= -->
+<div id="pageAdminLogin" class="page hide">
+    <div class="title">🔐 دخول المشرف</div>
+    <input type="password" id="adminPass" placeholder="كلمة المرور">
+    <button class="btn-purple" onclick="checkAdminLogin()">دخول</button>
+    <button class="btn-gray" onclick="showHome()">الرئيسية</button>
+</div>
+
+<div id="pageAdmin" class="page hide">
+    <div class="title">👑 لوحة التحكم</div>
+    <div id="adminStats" class="counter-box"></div>
+    <div class="title" style="font-size:20px;">📋 المحاور (10 محاور)</div>
+    <div id="adminTopicsList" class="topics-grid"></div>
+    <div class="title" style="font-size:20px;">📊 المسجلين</div>
+    <div id="adminData"></div>
+    <button class="btn-gray" onclick="showHome()">🏠 الرئيسية</button>
+</div>
+
+<!-- ======================= قسم تعليم اللغة العربية (الجديد) ======================= -->
+<div id="pageArabicTest" class="page hide">
+    <div class="title">🌍 اختبار تحديد مستوى اللغة العربية</div>
+    <div class="counter-box">🗣️ اختبار شفوي (تسجيل + استماع) + 📝 اختبار كتابي</div>
+    
+    <div style="background: white; border-radius: 25px; padding: 15px; margin: 15px 0;">
+        <input type="text" id="arabicStudentName" placeholder="الاسم الكامل">
+        <div class="flex-row">
+            <input type="text" id="arabicStudentNationality" placeholder="الجنسية" style="flex:1">
+            <input type="text" id="arabicStudentEmail" placeholder="البريد الإلكتروني" style="flex:1">
+        </div>
+    </div>
+    
+    <!-- القسم الشفوي -->
+    <div class="audio-card">
+        <h3 style="color:#2c5f2d; text-align:center;">🎤 القسم الأول: الاختبار الشفوي</h3>
+        <div style="text-align:center;">
+            <label style="font-weight:bold;">اختر الحرف:</label>
+            <select id="oralLetter" style="width:auto; display:inline-block; font-size:24px; margin:10px;">
+                <option value="أ">أ</option><option value="ب">ب</option><option value="ت">ت</option>
+                <option value="ث">ث</option><option value="ج">ج</option><option value="ح">ح</option>
+                <option value="خ">خ</option><option value="د">د</option><option value="ذ">ذ</option>
+                <option value="ر">ر</option><option value="ز">ز</option><option value="س">س</option>
+                <option value="ش">ش</option><option value="ص">ص</option><option value="ض">ض</option>
+                <option value="ط">ط</option><option value="ظ">ظ</option><option value="ع">ع</option>
+                <option value="غ">غ</option><option value="ف">ف</option><option value="ق">ق</option>
+                <option value="ك">ك</option><option value="ل">ل</option><option value="م">م</option>
+                <option value="ن">ن</option><option value="ه">ه</option><option value="و">و</option>
+                <option value="ي">ي</option>
+            </select>
+            <button class="btn-blue" onclick="selectOralLetter()" style="width:auto; padding:8px 20px;">✅ اختيار</button>
+        </div>
+        <div class="big-letter" id="oralDisplay">أ</div>
+        
+        <div style="background:#f0f9ff; padding:15px; border-radius:20px; margin:10px 0;">
+            <p><strong>📌 تسجيل المعلم (النموذج الصحيح)</strong></p>
+            <div class="flex-row">
+                <button id="startTeacherBtn" style="background:#2563eb; color:white; width:auto; padding:8px 20px;">🔴 بدء تسجيل المعلم</button>
+                <button id="stopTeacherBtn" disabled style="background:#dc2626; color:white; width:auto; padding:8px 20px;">⏹️ إيقاف</button>
+            </div>
+            <div id="teacherStatus" style="background:#f3f4f6; padding:8px; border-radius:15px;">⚪ جاهز</div>
+            <div id="teacherAudio"></div>
+        </div>
+        
+        <div style="background:#f0fdf4; padding:15px; border-radius:20px; margin:10px 0;">
+            <p><strong>🗣️ تسجيل الطالب (محاولته)</strong></p>
+            <div class="flex-row">
+                <button id="startStudentBtn" disabled style="background:#16a34a; color:white; width:auto; padding:8px 20px;">🔴 بدء تسجيل الطالب</button>
+                <button id="stopStudentBtn" disabled style="background:#dc2626; color:white; width:auto; padding:8px 20px;">⏹️ إيقاف</button>
+            </div>
+            <div id="studentStatus" style="background:#f3f4f6; padding:8px; border-radius:15px;">⚪ انتظار</div>
+            <div id="studentAudio"></div>
+        </div>
+        
+        <div style="background:#fef9c3; padding:15px; border-radius:20px; margin:10px 0;">
+            <p><strong>🔊 الاستماع والتقييم</strong></p>
+            <div class="flex-row">
+                <button id="playTeacherBtn" disabled style="background:#facc15; width:auto; padding:8px 15px;">🔊 استمع للمعلم</button>
+                <button id="playStudentBtn" disabled style="background:#facc15; width:auto; padding:8px 15px;">🔊 استمع للطالب</button>
+            </div>
+            <div class="flex-row">
+                <label>الدرجة (0-20):</label>
+                <input type="number" id="oralScore" min="0" max="20" value="15" style="width:80px;">
+                <label>ملاحظة:</label>
+                <input type="text" id="oralRemark" placeholder="نطق..." style="width:150px;">
+                <button id="saveOralBtn" disabled style="background:#2c5f2d; color:white; width:auto; padding:8px 20px;">💾 حفظ</button>
+            </div>
+        </div>
+        <div id="oralResultLog"></div>
+        <button class="btn-green" onclick="calculateOralFinal()">🏆 إنهاء الشفوي</button>
+    </div>
+    
+    <!-- القسم الكتابي -->
+    <div class="audio-card">
+        <h3 style="color:#2c5f2d; text-align:center;">📝 القسم الثاني: الاختبار الكتابي</h3>
+        <div id="writtenQuestions"></div>
+        <button class="btn-green" onclick="calculateWrittenScore()">✅ حساب الدرجة</button>
+        <div id="writtenResult"></div>
+    </div>
+    
+    <!-- النتيجة النهائية -->
+    <div class="audio-card">
+        <h3 style="color:#2c5f2d; text-align:center;">📊 النتيجة النهائية والمستوى</h3>
+        <button class="btn-gold" onclick="calculateFinalLevel()">🎯 حساب المستوى</button>
+        <div id="finalLevelResult"></div>
+        <button id="certificateBtn" style="display:none; background:#facc15;" onclick="generateCertificate()">🎓 إصدار شهادة</button>
+    </div>
+    
+    <button class="btn-gray" onclick="showHome()">🔙 العودة للرئيسية</button>
+</div>
+
+</div>
+
+<script>
+// ======================= البيانات الأساسية =======================
+let allUsers = [];
+let level1Idx = 0, level2Idx = 0, trialIdx = 0;
+let ex1Page = 0;
+let userAnswers = new Array(50).fill("");
+let oralEvaluations = [];
+let writtenAnswers = {};
+
+// ======================= شرائح المستوى الأول (22 شريحة) =======================
+const level1Slides = [
+    {title:"الغلاف", content:`<div class="speech-bubble" style="text-align:center;"><div class="page-image"><img src="https://i.postimg.cc/y6QLzybv/alatfal-walhaswb.jpg"></div><h2 style="color:#facc15;">📚 الأطفال والحاسوب</h2><p>بقلم: محمد زايد</p><p>خبير دولي في التقنيات الحاسوبية / أستاذ جامعي</p><p>2026</p></div>`},
+    {title:"اللقاء مع الحاسوب", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/85ymNTtc/haswb.jpg"></div><p class="kids-talk">🧒 الأطفال - هيا بنا نتعرف على الحاسوب لنلعب معه.</p><p class="kids-talk">🧒 الأطفال - ما اسمك أيها الصديق؟</p><p class="computer-talk">💻 الحاسوب: لي اسمان الكمبيوتر أو الحاسوب</p><p class="kids-talk">🧒 الأطفال: هل يمكن أن تصف لنا نفسك؟</p><p class="computer-talk">💻 الحاسوب: انني أتكون من جزئين أساسيين:</p><p class="computer-talk">أ - جزء مادي (Hardware / Matériel)</p><p class="computer-talk">ب - جزء معنوي (Software / Logiciel)</p><div class="trilingual">🔹 حاسوب = ordinateur = computer</div></div>`},
+    {title:"لا انفصال", content:`<div class="speech-bubble"><p class="kids-talk">🧒 الأطفال: هل يمكن للجزئين أن ينفصلا عن بعضهما؟</p><p class="computer-talk">💻 الحاسوب: لا أبداً. لا يمكن للجزء الأول أن يكون مشتغلاً إلا إذا تعامل مع الجزء الثاني.</p></div>`},
+    {title:"المعالج والذاكرة", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/7Y5mPTv5/almʿalj.jpg"></div><p class="kids-talk">🧒 الأطفال: يقال عنك أنك ذكي وسريع في الرياضيات. هل هذا صحيح وكيف ذلك؟</p><p class="computer-talk">💻 الحاسوب: قبل أن اجيبكما عن سؤالكما لابد لي أن أواصل حديثي عن تركيبتي الداخلية ثم الخارجية.</p><p class="kids-talk">🧒 الأطفال: هل هذا له علاقة بسؤالنا؟</p><p class="computer-talk">💻 الحاسوب: أجل</p><p class="kids-talk">🧒 الأطفال: كيف ذلك؟</p><p class="computer-talk">💻 الحاسوب: انني أتكون من الداخل من عناصر أساسية مصنوعة من معادن (الحديد والفولاذ والبلاستيك) والعناصر هي: «المعالج» والذاكرة.</p><div class="trilingual">🔹 ذاكرة = mémoire = memory</div></div>`},
+    {title:"القلب والدماغ", content:`<div class="speech-bubble"><p class="computer-talk">💻 الحاسوب: المعالج والذاكرة يناسبان عند الإنسان بالقلب والدماغ.</p></div>`},
+    {title:"الوحدة المركزية", content:`<div class="speech-bubble"><p class="kids-talk">🧒 الأطفال: ما هي الوحدة المركزية؟</p><p class="computer-talk">💻 الحاسوب: الوحدة المركزية هي قلبي النابض وعقلي المفكر، تقوم بالعمليات الحسابية والمنطقية.</p></div>`},
+    {title:"الذاكرة الحية والميتة", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/DwqQmrx4/hyt-wmytt.jpg"></div><p class="kids-talk">🧒 الأطفال: وما هي الذاكرات الأخرى؟</p><p class="computer-talk">💻 الحاسوب: RAM ذاكرة حية (مؤقتة) - ROM ذاكرة ميتة (دائمة).</p><div class="trilingual">🔹 RAM = ذاكرة حية / ROM = ذاكرة ميتة</div></div>`},
+    {title:"الروابط", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/xTBgXTYy/alnwaql-waldhakrat.png"></div><p class="computer-talk">💻 الحاسوب: الروابط هي النواقل التي تنقل البيانات.</p><div class="trilingual">🔹 النواقل = Bus</div></div>`},
+    {title:"الوسائط", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/9M1J0dFz/camera-numerique.png"></div><p class="kids-talk">🧒 الأطفال: هل هناك عناصر أخرى؟</p><p class="computer-talk">💻 الحاسوب: نعم، الوسائط مثل كاميرا فيديو رقمية.</p><div class="trilingual">🔹 كاميرا رقمية = Caméra numérique = Digital camera</div></div>`},
+    {title:"الفأرة", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/KzV0SnGp/cartoon-computer-mouse-19321429.webp"></div><p class="kids-talk">🧒 الأطفال: ما دور الفأرة؟</p><p class="computer-talk">💻 الحاسوب: هي أداة للتفاعل مع نظام "وينداوز".</p><div class="trilingual">🔹 فأرة = Souris = Mouse</div></div>`},
+    {title:"لوحة المفاتيح", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/HL6y7BXk/lwht-mfatyh.jpg"></div><p class="computer-talk">💻 الحاسوب: لإدخال الحروف والأرقام.</p><div class="trilingual">🔹 لوحة مفاتيح = Clavier = Keyboard</div></div>`},
+    {title:"القلم الضوئي", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/htbxKSGD/qlm-alktrwny.jpg"></div><p class="computer-talk">💻 الحاسوب: لإدخال الشفرات العمودية.</p></div>`},
+    {title:"الشاشة", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/1tYwbJ3f/shasht.jpg"></div><p class="computer-talk">💻 الحاسوب: لعرض النصوص والصور.</p><div class="trilingual">🔹 شاشة = Ecran = Screen</div></div>`},
+    {title:"الطابعة", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/NF9mtmKP/tabʿat.jpg"></div><p class="kids-talk">🧒 الأطفال: ما هي قنوات الإخراج؟</p><p class="computer-talk">💻 الحاسوب: الطابعة تنشر المعطيات على الورق.</p><div class="trilingual">🔹 طابعة = Imprimante = Printer</div></div>`},
+    {title:"الطابعة الإبرية والنافثة والليزرية", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/qqPnvqn6/tabʿt-abryt.jpg"></div><p class="computer-talk">💻 الحاسوب: الطابعات: إبرية، نافثة للحبر، ليزرية.</p></div>`},
+    {title:"الماسح والراسم", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/MGq7BnLb/rasm.jpg"></div><p class="computer-talk">💻 الحاسوب: الماسح لإدخال الصور، الراسم للخرائط.</p><div class="trilingual">🔹 راسم = Traceur = Plotter</div></div>`},
+    {title:"المودم", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/HsMhmP7c/mwdym.jpg"></div><p class="kids-talk">🧒 الأطفال: هل يمكنك التخاطب مع حواسيب أخرى؟</p><p class="computer-talk">💻 الحاسوب: نعم عبر جهاز يدعى "موديم".</p><div class="trilingual">🔹 مودم = Modem</div></div>`},
+    {title:"البرمجيات", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/CxHrBB7z/nzam-tshghyl.jpg"></div><p class="computer-talk">💻 الحاسوب: البرمجيات تنقسم إلى نظام تشغيل وبرامج تطبيقية.</p><div class="trilingual">🔹 نظام تشغيل = Système d'exploitation = Operating System</div></div>`},
+    {title:"كيف نلعب مع الحاسوب", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/ry35Jnbp/qrs-slb.jpg"></div><p class="kids-talk">🧒 الأطفال: كيف نلعب معك؟</p><p class="computer-talk">💻 الحاسوب: تخزنوا اللعبة على القرص الصلب، وتشغلوا ملف install.exe.</p></div>`},
+    {title:"الخاتمة والفيديوهات", content:`<div class="speech-bubble"><p class="kids-talk">🧒 الأطفال: شكراً على المعلومات.</p><hr><p style="text-align:center;">========== إنتهى الدرس ==========</p><div class="video-container"><iframe src="https://www.youtube.com/embed/3QCgr6IpuvA" frameborder="0" allowfullscreen></iframe></div><div class="video-container" style="margin-top:15px;"><iframe src="https://www.youtube.com/embed/HB4I2CgkcCo" frameborder="0" allowfullscreen></iframe></div><button class="btn-purple" onclick="showLevel1Exercises()" style="margin-top:20px;">📝 انتقل إلى التمارين (50 سؤالاً)</button></div>`}
+];
+
+// شرائح الدرس التجريبي
+const trialSlides = level1Slides.slice(0, 6);
+
+// ======================= التمارين الخمسون =======================
+const level1Exercises = [
+    "1) ماهي مكونات الحاسوب؟", "2) ما هي المواد التي صنعت منها أجزاء الحاسوب؟",
+    "3) ماهي تركيبة الحاسوب الداخلية؟", "4) ما هي وظيفة كل جزء داخلي في الحاسوب؟",
+    "5) ما هي الذاكرة الرئيسية؟", "6) ما دور الذاكرة الرئيسية؟",
+    "7) ماهي أنواع الذاكرات عند الحاسوب؟", "8) ما هو الفرق بينها؟",
+    "9) ما هي الروابط في الحاسوب؟", "10) كيف نسمي الروابط أيضا وما دورها؟",
+    "11) ما هي اللواحق؟", "12) ما هي مهمة كل لاحق؟",
+    "13) ماهي اللواحق التي تمكننا التفاعل مع الحاسوب؟", "14) كيف نستخدم الفارة؟",
+    "15) ماهي اللواحق الأخرى؟", "16) ما دور لوحة المفاتيح؟",
+    "17) ما هو القلم الالكتروني؟ ما هو اسمه الثاني؟", "18) متى نستخدم القلم الضوئي؟",
+    "19) متى نستخدم اللوحة الرسومية؟", "20) كيف شكلها؟",
+    "21) ما هي الشاشة اللمسية؟", "22) كيف تشتغل ومتى نستخدمها؟ اين نجدها؟",
+    "23) ماهو دور الشاشات في الحاسوب؟", "24) هل هناك نوع واحد وماهي؟",
+    "25) ما دور الطابعة؟ وما هي أنواعها؟", "26) متى نستخدم الطابعة؟",
+    "27) كيف نكلم الحاسوب؟", "28) كيف نسمع ما يقول الحاسوب عندما يجيب؟",
+    "29) ما هي العلاقة بين شاشة التلفزة والحاسوب؟", "30) متى نحتاج لشاشة التلفزة؟",
+    "31) ماهي مختلف ملحقات الحاسوب؟", "32) ما دور كل واحد منها؟",
+    "33) الطابعات هي لواحق اخراج؟ كيف؟", "34) ما هي أنواع المعلومات التي تخرجها الطابعات؟",
+    "35) ما هو الماسح؟", "36) متى نستخدم الماسح؟",
+    "37) ما هو الراسم؟", "38) متى نستخدم الراسم؟ ما هي وظيفته؟",
+    "39) هل يمكن للحاسوب التخاطب مع حواسيب أخرى بعيدة؟ كيف؟", "40) ما هو الجهاز الذي يمكنه من ذلك؟",
+    "41) كيف يستطيع الحاسوب التحاور مع الانسان؟", "42) ما هي العناصر الضرورية التي تمكنه من ذلك؟",
+    "43) ما دور الأقراص الليزرية؟", "44) ماذا تحتوي تلك الأقراص؟",
+    "45) ما هو نظام التشغيل؟", "46) اذكر أمثلة لأنظمة التشغيل؟",
+    "47) ما هي البرمجيات التطبيقية؟", "48) كيف يتم تركيز لعبة على الحاسوب؟",
+    "49) اذكر خطوات تشغيل لعبة على الحاسوب؟", "50) كيف يتم إغلاق برمجية اللعب؟"
+];
+
+// ======================= المستوى الثاني =======================
+const level2Slides = [
+    {title:"مقدمة المستوى الثاني", content:`<div class="speech-bubble"><h3 style="color:#facc15;">🎯 المستوى الثاني</h3><p>معمارية الحاسوب، الخوارزميات، الشبكات، الأمن السيبراني.</p></div>`},
+    {title:"المعالج CPU", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/7Y5mPTv5/almʿalj.jpg"></div><h3 style="color:#facc15;">🧠 CPU</h3><p>CU + ALU + Registers + Cache</p><div class="trilingual">⚡ السرعة: جيجاهرتز (GHz)</div></div>`},
+    {title:"الخوارزميات", content:`<div class="speech-bubble"><h3 style="color:#facc15;">📊 الخوارزميات</h3><p>مجموعة تعليمات متسلسلة لحل مشكلة.</p><div class="video-container"><iframe src="https://www.youtube.com/embed/6xP7zcxb9l4" frameborder="0" allowfullscreen></iframe></div></div>`},
+    {title:"الشبكات", content:`<div class="speech-bubble"><div class="page-image"><img src="https://i.postimg.cc/HsMhmP7c/mwdym.jpg"></div><h3 style="color:#facc15;">🌐 الشبكات</h3><p>LAN, WAN, الإنترنت، IP Address</p></div>`},
+    {title:"الأمن السيبراني", content:`<div class="speech-bubble"><h3 style="color:#facc15;">🔒 الأمن السيبراني</h3><p>تشفير، جدران نارية، كلمات مرور قوية</p></div>`},
+    {title:"الاختبار", content:`<div class="speech-bubble"><button class="btn-purple" onclick="showLevel2Exam()">📝 ابدأ الاختبار</button></div>`}
+];
+
+const level2Questions = ["ما هي وحدة المعالجة المركزية؟", "ما هي الخوارزمية؟", "ما الفرق بين LAN و WAN؟", "ما هو عنوان IP؟", "ما هي لغة البرمجة؟"];
+const level2Answers = ["cpu", "تعليمات متسلسلة", "lan محلية wan واسعة", "عنوان فريد", "لغة للتواصل مع الحاسوب"];
+
+// ======================= دوال العرض العامة =======================
+function hideAll() { document.querySelectorAll('.page').forEach(p=>p.classList.add('hide')); }
+function show(id) { hideAll(); document.getElementById(id).classList.remove('hide'); }
+function showHome() { show('pageHome'); }
+function showTopics() { show('pageTopics'); }
+function showAdminLogin() { show('pageAdminLogin'); }
+function showBookstore() { 
+    let books = [{icon:"📘", title:"المنجد الثلاثي", price:"25 د.ت", action:"showPromo"},{icon:"💻", title:"المستوى الأول", price:"11 د.ت", action:"showLevel1"},{icon:"⭐", title:"المستوى الثاني", price:"15 د.ت", action:"showLevel2"}];
+    let html=''; books.forEach(b=>{ html+=`<div class="topic-card" onclick="${b.action}()"><div style="font-size:3rem;">${b.icon}</div><div>${b.title}</div><div class="counter-box">💰 ${b.price}</div><button class="btn-gold">شراء</button></div>`; });
+    document.getElementById('booksGrid').innerHTML=html; show('pageBookstore');
+}
+function showTopicDetail(topic) { 
+    let contents = { 
+        'المدينة الذكية':'المدينة الذكية تستخدم التكنولوجيا لتحسين جودة الحياة.',
+        'الذكاء الاصطناعي':'الذكاء الاصطناعي يجعل الآلات تفكر.',
+        'الأمن السيبراني':'حماية البيانات من الهجمات.',
+        'تطوير التعليم':'استخدام التكنولوجيا في التعليم.',
+        'المحاضرات العلمية':'محاضرات مسجلة في مختلف المجالات.',
+        'الندوات التكوينية':'ندوات مباشرة ومسجلة مع خبراء.'
+    };
+    document.getElementById('contentTitle').innerHTML=topic;
+    document.getElementById('contentBody').innerHTML=`<div class='speech-bubble'><p>${contents[topic] || 'محتوى سيتم إضافته قريباً.'}</p></div>`;
+    show('pageContent');
+}
+function buyNow() { alert("📞 واتساب: +21655335477"); }
+function showPromo() { show('pagePromo'); }
+
+// درس تجريبي
+function startTrial() { trialIdx=0; show('pageTrial'); loadTrial(); }
+function loadTrial() { let s=trialSlides[trialIdx]; document.getElementById('trialContent').innerHTML=`<h3>${trialIdx+1}. ${s.title}</h3>${s.content}`; document.getElementById('trialCount').innerHTML=`📖 ${trialIdx+1}/${trialSlides.length}`; document.getElementById('trialFill').style.width=`${(trialIdx+1)/trialSlides.length*100}%`; }
+function trialNext() { if(trialIdx<trialSlides.length-1) trialIdx++; else { alert("🎁 انتهى الدرس التجريبي!"); showHome(); return; } loadTrial(); }
+function trialPrev() { if(trialIdx>0) trialIdx--; loadTrial(); }
+
+// المستوى الأول
+function showLevel1() { level1Idx=0; show('pageLevel1'); loadLevel1(); }
+function loadLevel1() { let s=level1Slides[level1Idx]; document.getElementById('level1Content').innerHTML=`<h3>${level1Idx+1}. ${s.title}</h3>${s.content}`; document.getElementById('level1Count').innerHTML=`📖 ${level1Idx+1}/${level1Slides.length}`; document.getElementById('level1Fill').style.width=`${(level1Idx+1)/level1Slides.length*100}%`; }
+function level1Next() { if(level1Idx<level1Slides.length-1) level1Idx++; else { alert("🎉 أكملت المستوى الأول!"); showHome(); return; } loadLevel1(); }
+function level1Prev() { if(level1Idx>0) level1Idx--; loadLevel1(); }
+
+// تمارين المستوى الأول
+function showLevel1Exercises() { ex1Page=0; renderLevel1Exercises(); show('pageLevel1Exercises'); }
+function renderLevel1Exercises() { let html=''; for(let i=ex1Page*10; i<Math.min((ex1Page+1)*10,50); i++) html+=`<div class="quiz-question"><strong>${level1Exercises[i]}</strong><br><textarea id="ex1_${i}" rows="3">${userAnswers[i]||''}</textarea></div>`; document.getElementById('level1ExercisesContainer').innerHTML=html; }
+function ex1Next() { if((ex1Page+1)*10<50) { ex1Page++; renderLevel1Exercises(); } }
+function ex1Prev() { if(ex1Page>0) { ex1Page--; renderLevel1Exercises(); } }
+function submitLevel1Exercises() { for(let i=0;i<50;i++){let ta=document.getElementById(`ex1_${i}`); if(ta) userAnswers[i]=ta.value;} let score=0; for(let i=0;i<50;i++) if(userAnswers[i] && userAnswers[i].length>15) score+=2; let name=document.getElementById('fullName').value||'الطالب'; let result=(score>=50)?`<div class="result-box"><div class="score-high">${score}/100</div><div class="certificate">🎓 شهادة إتمام المستوى الأول<br>${name}</div><button class="btn-green" onclick="showLevel2()">🚀 انتقل للمستوى الثاني</button></div>`:`<div class="result-box"><div class="score-low">${score}/100</div><p>🔁 حاول مرة أخرى</p><button class="btn-gray" onclick="showLevel1Exercises()">📝 إعادة التمارين</button></div>`; document.getElementById('level1ExResultContent').innerHTML=result; show('pageLevel1ExResult'); }
+
+// المستوى الثاني
+function showLevel2() { level2Idx=0; show('pageLevel2'); loadLevel2(); }
+function loadLevel2() { let s=level2Slides[level2Idx]; document.getElementById('level2Content').innerHTML=`<h3>${level2Idx+1}. ${s.title}</h3>${s.content}`; document.getElementById('level2Count').innerHTML=`📖 ${level2Idx+1}/${level2Slides.length}`; document.getElementById('level2Fill').style.width=`${(level2Idx+1)/level2Slides.length*100}%`; }
+function level2Next() { if(level2Idx<level2Slides.length-1) level2Idx++; else { alert("🎉 أكملت المستوى الثاني!"); showHome(); return; } loadLevel2(); }
+function level2Prev() { if(level2Idx>0) level2Idx--; loadLevel2(); }
+function showLevel2Exam() { let html=''; for(let i=0;i<level2Questions.length;i++) html+=`<div class="quiz-question"><strong>${i+1}. ${level2Questions[i]}</strong><br><input type="text" id="l2_q${i}"></div>`; document.getElementById('level2ExamContainer').innerHTML=html; show('pageLevel2Exam'); }
+function submitLevel2Exam() { let score=0; for(let i=0;i<level2Questions.length;i++) if(document.getElementById(`l2_q${i}`).value.trim().toLowerCase()===level2Answers[i]) score+=5; let result=(score>=15)?`<div class="result-box"><div class="score-high">${score}/25</div><div class="certificate">🎓 شهادة إتمام المستوى الثاني</div></div>`:`<div class="result-box"><div class="score-low">${score}/25</div><p>🔁 حاول مرة أخرى</p></div>`; document.getElementById('level2ResultContent').innerHTML=result; show('pageLevel2Result'); }
+
+// ======================= دوال المستخدمين والمشرف =======================
+function saveUser() { 
+    let name=document.getElementById('fullName').value.trim(); 
+    let phone=document.getElementById('phone').value.trim(); 
+    if(!name||!phone){alert("الرجاء إدخال الاسم ورقم الهاتف"); return;} 
+    if(!allUsers.find(u=>u.phone===phone)) allUsers.push({name,phone,date:new Date().toLocaleDateString()}); 
+    localStorage.setItem('users',JSON.stringify(allUsers)); 
+    document.getElementById('countUsers').innerHTML=allUsers.length; 
+    alert("✅ تم حفظ بياناتك!"); 
+}
+function loadUsers() { let u=localStorage.getItem('users'); if(u) allUsers=JSON.parse(u); document.getElementById('countUsers').innerHTML=allUsers.length; }
+function exitApp() { if(confirm('الخروج من المنصة؟')) window.close(); }
+function checkAdminLogin() { 
+    let pass=document.getElementById('adminPass').value; 
+    if(pass==='admin123'){ 
+        show('pageAdmin'); 
+        document.getElementById('adminStats').innerHTML=`📊 عدد المسجلين: ${allUsers.length}<br>🔓 وضع المشرف مفعل`; 
+        let topicsHtml = ['🏙️ المدينة الذكية','🤖 الذكاء الاصطناعي','🛡️ الأمن السيبراني','📚 تطوير التعليم','📖 المستوى الأول','⭐ المستوى الثاني','📚 مكتبة الكتب','🎥 المحاضرات','🎤 الندوات','🌍 تعليم العربية'].map(t => `<div class="topic-card" style="cursor:pointer;" onclick="showTopicDetail('${t}')">${t}</div>`).join(''); 
+        document.getElementById('adminTopicsList').innerHTML=topicsHtml; 
+        let usersHtml='<table style="width:100%; border-collapse:collapse;"><tr style="background:#2c5f2d; color:white;"><th>#</th><th>الاسم</th><th>الهاتف</th><th>التاريخ</th></tr>'; 
+        allUsers.forEach((u,i)=>{usersHtml+=`<tr style="border-bottom:1px solid #334155;"><td style="padding:8px;">${i+1}</td><td style="padding:8px;">${u.name}</td><td style="padding:8px;">${u.phone}</td><td style="padding:8px;">${u.date}</td></tr>`;}); 
+        usersHtml+='</table>'; 
+        document.getElementById('adminData').innerHTML=usersHtml; 
+    } else alert("❌ كلمة مرور خاطئة (admin123)"); 
+}
+
+// ======================= قسم تعليم العربية (واجهة التسجيل الصوتي) =======================
+let teacherRecorder=null, studentRecorder=null, teacherChunks=[], studentChunks=[], teacherUrl=null, studentUrl=null, currentLetter="أ";
+
+function selectOralLetter() { currentLetter=document.getElementById('oralLetter').value; document.getElementById('oralDisplay').innerHTML=currentLetter; clearRecordings(); }
+function clearRecordings() { if(teacherUrl) URL.revokeObjectURL(teacherUrl); if(studentUrl) URL.revokeObjectURL(studentUrl); document.getElementById('teacherAudio').innerHTML=''; document.getElementById('studentAudio').innerHTML=''; document.getElementById('playTeacherBtn').disabled=true; document.getElementById('playStudentBtn').disabled=true; document.getElementById('saveOralBtn').disabled=true; document.getElementById('startStudentBtn').disabled=true; document.getElementById('teacherStatus').innerHTML='⚪ جاهز'; document.getElementById('studentStatus').innerHTML='⚪ انتظار'; document.getElementById('startTeacherBtn').disabled=false; }
+
+document.getElementById('startTeacherBtn').onclick = async () => { try { let stream = await navigator.mediaDevices.getUserMedia({ audio: true }); teacherRecorder = new MediaRecorder(stream); teacherChunks=[]; teacherRecorder.ondataavailable=e=>{if(e.data.size>0) teacherChunks.push(e.data);}; teacherRecorder.onstop=()=>{ let blob=new Blob(teacherChunks,{type:'audio/wav'}); teacherUrl=URL.createObjectURL(blob); document.getElementById('teacherAudio').innerHTML=`<audio controls src="${teacherUrl}"></audio><span style="color:green;">✅ تم</span>`; document.getElementById('teacherStatus').innerHTML='✅ تم تسجيل المعلم'; document.getElementById('startStudentBtn').disabled=false; stream.getTracks().forEach(t=>t.stop()); }; teacherRecorder.start(); document.getElementById('startTeacherBtn').disabled=true; document.getElementById('stopTeacherBtn').disabled=false; document.getElementById('teacherStatus').innerHTML='🔴 جاري التسجيل...'; } catch(e){ alert('لا يمكن الوصول للميكروفون'); } };
+document.getElementById('stopTeacherBtn').onclick = () => { if(teacherRecorder && teacherRecorder.state==='recording') teacherRecorder.stop(); document.getElementById('startTeacherBtn').disabled=false; document.getElementById('stopTeacherBtn').disabled=true; };
+document.getElementById('startStudentBtn').onclick = async () => { try { let stream = await navigator.mediaDevices.getUserMedia({ audio: true }); studentRecorder = new MediaRecorder(stream); studentChunks=[]; studentRecorder.ondataavailable=e=>{if(e.data.size>0) studentChunks.push(e.data);}; studentRecorder.onstop=()=>{ let blob=new Blob(studentChunks,{type:'audio/wav'}); studentUrl=URL.createObjectURL(blob); document.getElementById('studentAudio').innerHTML=`<audio controls src="${studentUrl}"></audio><span style="color:green;">✅ تم</span>`; document.getElementById('studentStatus').innerHTML='✅ تم تسجيل الطالب'; document.getElementById('saveOralBtn').disabled=false; document.getElementById('playStudentBtn').disabled=false; stream.getTracks().forEach(t=>t.stop()); }; studentRecorder.start(); document.getElementById('startStudentBtn').disabled=true; document.getElementById('stopStudentBtn').disabled=false; document.getElementById('studentStatus').innerHTML='🔴 جاري التسجيل...'; } catch(e){ alert('خطأ'); } };
+document.getElementById('stopStudentBtn').onclick = () => { if(studentRecorder && studentRecorder.state==='recording') studentRecorder.stop(); document.getElementById('startStudentBtn').disabled=false; document.getElementById('stopStudentBtn').disabled=true; };
+document.getElementById('playTeacherBtn').onclick = () => { if(teacherUrl) new Audio(teacherUrl).play(); };
+document.getElementById('playStudentBtn').onclick = () => { if(studentUrl) new Audio(studentUrl).play(); };
+document.getElementById('saveOralBtn').onclick = () => { let score=parseInt(document.getElementById('oralScore').value); score=Math.min(20,Math.max(0,score)); oralEvaluations.push({letter:currentLetter,score:score,remark:document.getElementById('oralRemark').value}); updateOralLog(); clearRecordings(); alert(`✅ تم تقييم "${currentLetter}"`); };
+function updateOralLog() { let log=document.getElementById('oralResultLog'); if(oralEvaluations.length===0){log.innerHTML=''; return;} let html='<div style="background:#e0e7ff; padding:10px; border-radius:15px;"><ul>'; oralEvaluations.forEach(e=>{html+=`<li>${e.letter} → ${e.score}/20 - ${e.remark||''}</li>`;}); html+='</ul></div>'; log.innerHTML=html; }
+function calculateOralFinal() { if(oralEvaluations.length===0){alert("لا توجد تقييمات"); return 0;} let total=oralEvaluations.reduce((s,e)=>s+e.score,0); let avg=Math.round((total/oralEvaluations.length)*10)/10; localStorage.setItem('oralScore',avg); alert(`✅ متوسط الشفوي: ${avg}/20`); return avg; }
+
+// الاختبار الكتابي
+const writtenData = [
+    {id:1,text:"ما هو جمع كلمة 'كتاب'؟",options:["كتب","كتابات","كتيب","مكتب"],correct:0},
+    {id:2,text:"اختر: 'ذهب الولد ___ المدرسة'",options:["إلى","على","في","عن"],correct:0},
+    {id:3,text:"معنى 'سريع'؟",options:["بطيء","سريع","جميل","كبير"],correct:1},
+    {id:4,text:"اختر الضمير: '___ يدرس العربية' (للولد)",options:["هي","أنت","هو","نحن"],correct:2}
+];
+function loadWrittenQuestions() { let html=''; writtenData.forEach((q,idx)=>{ html+=`<div style="background:#f8f9fa; padding:15px; border-radius:15px; margin:10px 0;"><strong>${idx+1}. ${q.text}</strong><br>`; q.options.forEach((opt,oidx)=>{ let checked=(writtenAnswers[q.id]==oidx)?'checked':''; html+=`<label style="margin-left:15px;"><input type="radio" name="wq${q.id}" value="${oidx}" ${checked} onclick="writtenAnswers[${q.id}]=${oidx}"> ${opt}</label>`; }); html+=`</div>`; }); document.getElementById('writtenQuestions').innerHTML=html; }
+function calculateWrittenScore() { let total=0; writtenData.forEach(q=>{ if(writtenAnswers[q.id]===q.correct) total+=10; }); let percent=(total/(writtenData.length*10))*100; document.getElementById('writtenResult').innerHTML=`<div style="background:#e3f2fd; padding:15px; border-radius:15px;">📝 الدرجة: ${total}/${writtenData.length*10} (${Math.round(percent)}%)</div>`; localStorage.setItem('writtenPercent',percent); return percent; }
+
+// النتيجة النهائية
+function calculateFinalLevel() { let oral=parseFloat(localStorage.getItem('oralScore'))||0; let written=parseFloat(localStorage.getItem('writtenPercent'))||0; let final=(oral*2+written)/3; let level=final<30?'A0':(final<50?'A1':(final<70?'A2':'B1')); document.getElementById('finalLevelResult').innerHTML=`<div class="result-box"><h3>النتيجة النهائية</h3><p>🎤 الشفوي: ${oral}/20</p><p>📝 الكتابي: ${Math.round(written)}%</p><div class="level-${level}" style="font-size:28px; margin:10px 0;">🎯 المستوى: ${level}</div></div>`; document.getElementById('certificateBtn').style.display='inline-block'; }
+function generateCertificate() { let win=window.open(); win.document.write(`<div style="text-align:center; padding:50px;"><h1>منصة محمد زايد</h1><h2>شهادة إتمام التقييم</h2><hr><p>${document.getElementById('arabicStudentName').value||'الطالب'}</p><p>المستوى: ${document.getElementById('finalLevelResult').innerText.match(/المستوى: (A0|A1|A2|B1)/)?.[1]||'A1'}</p><hr><p>zeidoun2021@gmail.com</p></div>`); win.document.close(); win.print(); }
+
+function showArabicTest() { show('pageArabicTest'); loadWrittenQuestions(); selectOralLetter(); }
+
+loadUsers();
+</script>
+</body>
+</html>
